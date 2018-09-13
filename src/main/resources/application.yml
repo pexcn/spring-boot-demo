@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 80
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: me.pexcn.demo.entity
+
+mapper:
+  identity: MYSQL
+  mappers: me.pexcn.demo.base.BaseMapper
+
+pagehelper:
+  auto-dialect: true
+  helper-dialect: mysql
+  dialect-alias:
+    alias[0]: com.github.pagehelper.dialect.helper.MySqlDialect
+  reasonable: true
+  support-methods-arguments: true
