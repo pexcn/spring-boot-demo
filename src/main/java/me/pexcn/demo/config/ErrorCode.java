@@ -6,7 +6,10 @@ package me.pexcn.demo.config;
  */
 public enum ErrorCode {
     // 错误未定义
-    ERROR_UNDEFINED("0xffffff"),
+    ERROR_UNDEFINED("0x000000"),
+
+    // 请求失败
+    BAD_REQUEST("0x000001"),
 
     // 用户名不存在
     USER_NOT_EXIST("0x100000"),
@@ -25,10 +28,6 @@ public enum ErrorCode {
     private String code;
 
     ErrorCode(String code) {
-        this.code = code;
-    }
-
-    public void setCode(String code) {
         this.code = code;
     }
 

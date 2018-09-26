@@ -32,7 +32,7 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> fail() {
-        return fail(ErrorCode.ERROR_UNDEFINED, ErrorCode.ERROR_UNDEFINED.toString());
+        return fail(ErrorCode.ERROR_UNDEFINED, ErrorCode.ERROR_UNDEFINED.name());
     }
 
     public static <T> ResponseData<T> fail(ErrorCode code) {
@@ -62,7 +62,7 @@ public class ResponseData<T> {
         error.setCode(code.getCode());
         error.setStatus(code);
         if (Objects.isNull(message)) {
-            message = ErrorCode.ERROR_UNDEFINED.toString();
+            message = ErrorCode.ERROR_UNDEFINED.name();
         }
         error.setMessage(message);
         response.setError(error);
@@ -71,7 +71,7 @@ public class ResponseData<T> {
     }
 
     @Data
-    public static class Error {
+    private static class Error {
         private String code;
         private ErrorCode status;
         private String message;
