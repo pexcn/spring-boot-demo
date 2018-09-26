@@ -10,3 +10,5 @@ logging:
   level:
     root: warn
     me.pexcn.demo: info
+    tk.mybatis.spring.mapper.ClassPathMapperScanner: error
+    org.mybatis.spring.mapper.ClassPathMapperScanner: error
