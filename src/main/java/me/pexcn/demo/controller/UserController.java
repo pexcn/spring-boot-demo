@@ -35,15 +35,14 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "用户登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "body",
-                    value = "登录信息",
-                    dataTypeClass = User.class,
-                    paramType = "body",
-                    required = true
-            )
+            @ApiImplicitParam(name = "body", value = "登录信息", dataTypeClass = User.class, paramType = "body", required = true)
     })
     public ResponseData<UserLoginResponse> login(@RequestBody UserLoginBody body) {
-        return userService.login(body);
+        try {
+            UserLoginResponse response = userService.login(body);
+            return ResponseData.succeed(response);
+        } catch (UserException e) {
+            return ResponseData.fail(e.getCode());
+        }
     }
 }

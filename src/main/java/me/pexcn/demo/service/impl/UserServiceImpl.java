@@ -1,11 +1,10 @@
 package me.pexcn.demo.service.impl;
 
-import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.config.ErrorCode;
-import me.pexcn.demo.entity.request.UserLoginBody;
-import me.pexcn.demo.mapper.UserMapper;
-import me.pexcn.demo.entity.response.UserLoginResponse;
 import me.pexcn.demo.entity.model.User;
+import me.pexcn.demo.entity.request.UserLoginBody;
+import me.pexcn.demo.entity.response.UserLoginResponse;
+import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.UserService;
 import me.pexcn.demo.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +27,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseData<UserLoginResponse> login(UserLoginBody body) {
+    public UserLoginResponse login(UserLoginBody body) throws UserException {
         if ("".equals(body.getUsername()) || Objects.isNull(body.getUsername())) {
-            return ResponseData.fail(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new UserException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(body.getPassword()) || Objects.isNull(body.getPassword())) {
-            return ResponseData.fail(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new UserException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(body.getUsername())) {
-            return ResponseData.fail(ErrorCode.USER_NOT_EXIST);
+            throw new UserException(ErrorCode.USER_NOT_EXIST);
         }
 
         User user = findUser(body);
         if (Objects.isNull(user)) {
-            return ResponseData.fail(ErrorCode.USER_NOT_MATCH);
+            throw new UserException(ErrorCode.USER_NOT_MATCH);
         }
 
         UserLoginResponse info = new UserLoginResponse();
         info.setUser(user);
         info.setToken(TokenUtils.createToken(user));
-        return ResponseData.succeed(info);
+        return info;
     }
 
     private User findUser(UserLoginBody body) {
