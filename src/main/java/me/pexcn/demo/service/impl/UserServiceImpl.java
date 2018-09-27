@@ -30,20 +30,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseData<UserLoginResponse> login(UserLoginBody body) {
         if ("".equals(body.getUsername()) || Objects.isNull(body.getUsername())) {
-            return ResponseData.fail(ErrorCode.USERNAME_NOT_BE_NULL, "Username cannot be null.");
+            return ResponseData.fail(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(body.getPassword()) || Objects.isNull(body.getPassword())) {
-            return ResponseData.fail(ErrorCode.PASSWORD_NOT_BE_NULL, "Password cannot be null.");
+            return ResponseData.fail(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(body.getUsername())) {
-            return ResponseData.fail(ErrorCode.USER_NOT_EXIST, "User not exist.");
+            return ResponseData.fail(ErrorCode.USER_NOT_EXIST);
         }
 
         User user = findUser(body);
         if (Objects.isNull(user)) {
-            return ResponseData.fail(ErrorCode.USER_NOT_MATCH, "Password not matched.");
+            return ResponseData.fail(ErrorCode.USER_NOT_MATCH);
         }
 
         UserLoginResponse info = new UserLoginResponse();

@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseData onBadRequest(Exception e) {
         log.error(e.getMessage());
-        return ResponseData.fail(ErrorCode.BAD_REQUEST, "请求失败");
+        return ResponseData.fail(ErrorCode.BAD_REQUEST);
     }
 }
