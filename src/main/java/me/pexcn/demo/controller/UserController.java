@@ -38,11 +38,7 @@ public class UserController {
             @ApiImplicitParam(name = "body", value = "登录信息", dataTypeClass = User.class, paramType = "body", required = true)
     })
     public ResponseData<UserLoginResponse> login(@RequestBody UserLoginBody body) {
-        try {
-            UserLoginResponse response = userService.login(body);
-            return ResponseData.succeed(response);
-        } catch (UserException e) {
-            return ResponseData.fail(e.getCode());
-        }
+        UserLoginResponse response = userService.login(body);
+        return ResponseData.succeed(response);
     }
 }

@@ -4,6 +4,7 @@ import me.pexcn.demo.config.ErrorCode;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.request.UserLoginBody;
 import me.pexcn.demo.entity.response.UserLoginResponse;
+import me.pexcn.demo.exception.GlobalException;
 import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.UserService;
 import me.pexcn.demo.utils.TokenUtils;
@@ -27,22 +28,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginResponse login(UserLoginBody body) throws UserException {
+    public UserLoginResponse login(UserLoginBody body) {
         if ("".equals(body.getUsername()) || Objects.isNull(body.getUsername())) {
-            throw new UserException(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new GlobalException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(body.getPassword()) || Objects.isNull(body.getPassword())) {
-            throw new UserException(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new GlobalException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(body.getUsername())) {
-            throw new UserException(ErrorCode.USER_NOT_EXIST);
+            throw new GlobalException(ErrorCode.USER_NOT_EXIST);
         }
 
         User user = findUser(body);
         if (Objects.isNull(user)) {
-            throw new UserException(ErrorCode.USER_NOT_MATCH);
+            throw new GlobalException(ErrorCode.USER_NOT_MATCH);
         }
 
         UserLoginResponse info = new UserLoginResponse();

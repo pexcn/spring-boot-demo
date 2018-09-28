@@ -32,14 +32,15 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> fail() {
-        return fail(ErrorCode.ERROR_UNDEFINED);
+        return fail(null, null);
     }
 
     public static <T> ResponseData<T> fail(ErrorCode code) {
-        if (Objects.isNull(code)) {
-            return fail();
-        }
-        return fail(code, code.getMessage());
+        return fail(code, null);
+    }
+
+    public static <T> ResponseData<T> fail(String message) {
+        return fail(null, message);
     }
 
     public static <T> ResponseData<T> fail(ErrorCode code, String message) {
@@ -50,13 +51,13 @@ public class ResponseData<T> {
 
         Error error = new Error();
         if (Objects.isNull(code)) {
-            code = ErrorCode.ERROR_UNDEFINED;
+            code = ErrorCode.UNDEFINED;
         }
-        error.setCode(code.getCode());
-        error.setStatus(code.name());
         if (Objects.isNull(message)) {
             message = code.getMessage();
         }
+        error.setCode(code.getCode());
+        error.setStatus(code.name());
         error.setMessage(message);
         response.setError(error);
 
