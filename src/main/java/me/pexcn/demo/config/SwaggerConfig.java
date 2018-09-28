@@ -33,8 +33,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("Swagger Demo API")
-                .description("Swagger demo API for Spring boot")
+                .title("Demo")
                 .version("0.1")
                 .build();
     }

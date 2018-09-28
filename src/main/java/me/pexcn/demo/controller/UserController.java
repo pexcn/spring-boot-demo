@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pexcn
  * @date 2018-09-18
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
-@Slf4j
 @Api(value = "/user", tags = "用户接口", description = "用户登录注册接口")
 public class UserController {
     private UserService userService;
