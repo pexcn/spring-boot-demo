@@ -3,7 +3,7 @@ package me.pexcn.demo.extension;
 import lombok.extern.slf4j.Slf4j;
 import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.config.ErrorCode;
-import me.pexcn.demo.exception.GlobalException;
+import me.pexcn.demo.exception.StatusException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,10 +16,15 @@ import java.util.Objects;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    /**
+     * TODO: status: exception class name
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseData onHandle(RuntimeException e) {
-        if (e instanceof GlobalException) {
-            GlobalException error = (GlobalException) e;
+        e.printStackTrace();
+
+        if (e instanceof StatusException) {
+            StatusException error = (StatusException) e;
 
             // TODO: write log to file.
             log.error(error.getMessage());

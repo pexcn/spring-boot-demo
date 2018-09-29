@@ -1,13 +1,12 @@
 package me.pexcn.demo.service;
 
-import me.pexcn.demo.entity.request.UserLoginBody;
-import me.pexcn.demo.entity.response.UserLoginResponse;
-import me.pexcn.demo.exception.GlobalException;
+import me.pexcn.demo.entity.request.LoginInfo;
+import me.pexcn.demo.entity.response.LoginResult;
 
 /**
  * @author pexcn
  * @date 2018-09-18
  */
 public interface UserService {
-    UserLoginResponse login(UserLoginBody body) throws GlobalException;
+    LoginResult login(LoginInfo body);
 }

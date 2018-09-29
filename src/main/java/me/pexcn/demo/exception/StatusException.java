@@ -10,21 +10,21 @@ import me.pexcn.demo.config.ErrorCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GlobalException extends RuntimeException {
+public class StatusException extends RuntimeException {
     private static final long serialVersionUID = -2884711401322100667L;
 
     private ErrorCode code;
 
-    public GlobalException(String message) {
+    public StatusException(String message) {
         super(message);
     }
 
-    public GlobalException(ErrorCode code) {
+    public StatusException(ErrorCode code) {
         super(code.getMessage());
         this.code = code;
     }
 
-    public GlobalException(ErrorCode code, String message) {
+    public StatusException(ErrorCode code, String message) {
         super(message);
         this.code = code;
     }

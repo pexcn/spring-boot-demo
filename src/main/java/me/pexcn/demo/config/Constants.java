@@ -14,4 +14,6 @@ public interface Constants {
     };
 
     String SWAGGER_BASE_API_PACKAGE = "me.pexcn.demo";
+
+    String TOKEN_KEY_UID = "uid";
 }

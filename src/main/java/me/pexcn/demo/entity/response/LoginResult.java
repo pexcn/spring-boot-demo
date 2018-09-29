@@ -3,7 +3,6 @@ package me.pexcn.demo.entity.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.pexcn.demo.entity.model.User;
 
 /**
  * @author pexcn
@@ -12,7 +11,7 @@ import me.pexcn.demo.entity.model.User;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLoginResponse {
+public class LoginResult {
+    private Long userId;
     private String token;
-    private User user;
 }

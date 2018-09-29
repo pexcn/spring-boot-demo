@@ -4,23 +4,19 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import me.pexcn.demo.annotation.Authorization;
 import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.entity.model.User;
-import me.pexcn.demo.entity.request.UserLoginBody;
-import me.pexcn.demo.entity.response.UserLoginResponse;
+import me.pexcn.demo.entity.request.LoginInfo;
+import me.pexcn.demo.entity.response.LoginResult;
 import me.pexcn.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author pexcn
  * @date 2018-09-18
  */
-@Slf4j
 @RestController
 @RequestMapping("/user")
 @Api(value = "/user", tags = "用户接口", description = "用户登录注册接口")
@@ -37,8 +33,18 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "body", value = "登录信息", dataTypeClass = User.class, paramType = "body", required = true)
     })
-    public ResponseData<UserLoginResponse> login(@RequestBody UserLoginBody body) {
-        UserLoginResponse response = userService.login(body);
+    public ResponseData<LoginResult> login(@RequestBody LoginInfo body) {
+        LoginResult response = userService.login(body);
         return ResponseData.succeed(response);
+    }
+
+    @Authorization
+    @GetMapping("/token")
+    @ApiOperation("Token 测试")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "Token", dataType = "string", paramType = "header", required = true)
+    })
+    public ResponseData needToken() {
+        return null;
     }
 }

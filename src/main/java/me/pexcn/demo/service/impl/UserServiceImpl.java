@@ -2,9 +2,9 @@ package me.pexcn.demo.service.impl;
 
 import me.pexcn.demo.config.ErrorCode;
 import me.pexcn.demo.entity.model.User;
-import me.pexcn.demo.entity.request.UserLoginBody;
-import me.pexcn.demo.entity.response.UserLoginResponse;
-import me.pexcn.demo.exception.GlobalException;
+import me.pexcn.demo.entity.request.LoginInfo;
+import me.pexcn.demo.entity.response.LoginResult;
+import me.pexcn.demo.exception.StatusException;
 import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.UserService;
 import me.pexcn.demo.utils.TokenUtils;
@@ -28,32 +28,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginResponse login(UserLoginBody body) {
+    public LoginResult login(LoginInfo body) {
         if ("".equals(body.getUsername()) || Objects.isNull(body.getUsername())) {
-            throw new GlobalException(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new StatusException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(body.getPassword()) || Objects.isNull(body.getPassword())) {
-            throw new GlobalException(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new StatusException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(body.getUsername())) {
-            throw new GlobalException(ErrorCode.USER_NOT_EXIST);
+            throw new StatusException(ErrorCode.USER_NOT_EXIST);
         }
 
         User user = findUser(body);
         if (Objects.isNull(user)) {
-            throw new GlobalException(ErrorCode.USER_NOT_MATCH);
+            throw new StatusException(ErrorCode.USER_NOT_MATCH);
         }
 
-        UserLoginResponse info = new UserLoginResponse();
-        info.setUser(user);
+        LoginResult info = new LoginResult();
+        info.setUserId(user.getUid());
         info.setToken(TokenUtils.createToken(user));
         return info;
     }
 
-    private User findUser(UserLoginBody body) {
-        Example example = new Example(User.class);
+    private User findUser(LoginInfo body) {
+        Example example = Example.builder(User.class).build();
         example.createCriteria()
                 .andEqualTo("username", body.getUsername())
                 .andEqualTo("password", body.getPassword());

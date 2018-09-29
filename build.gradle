@@ -10,6 +10,7 @@ buildscript {
         mybatisVersion = '1.3.2'
         mapperVersion = '2.0.4'
         pagehelperVersion = '1.2.7'
+        guavaVersion = '26.0-jre'
     }
 
     repositories {
@@ -50,6 +51,7 @@ dependencies {
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
     compile("io.jsonwebtoken:jjwt:${jjwtVersion}")
     compile("mysql:mysql-connector-java:${mysqlVersion}")
+    compile("com.google.guava:guava:${guavaVersion}")
 
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
