@@ -6,12 +6,11 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author pexcn
- * @date 2018-09-25
+ * @date 2018-09-30
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginInfo {
-    private String username;
-    private String password;
+public class CommentBody {
+    private String comment;
 }

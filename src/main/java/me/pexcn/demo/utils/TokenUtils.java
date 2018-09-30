@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import me.pexcn.demo.config.Constants;
 import me.pexcn.demo.entity.model.User;
-import org.springframework.http.HttpHeaders;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -18,11 +17,11 @@ import java.util.Date;
 public class TokenUtils {
     private static final String SECRET_KEY = "this_is_secret_key";
     private static final String ISSUER = "pexcn";
-    private static final long EXPIRE_OFFSET = 3600L;
+    private static final Long EXPIRE_OFFSET = 3600L;
     private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
     private static final Key SIGNING_KEY = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM.getJcaName());
-    private static final String TOKEN_HEADER = HttpHeaders.AUTHORIZATION;
-    private static final String TOKEN_PREFIX = "Bearer ";
+    // private static final String TOKEN_HEADER = HttpHeaders.AUTHORIZATION;
+    // private static final String TOKEN_PREFIX = "Bearer ";
 
     private TokenUtils() {
     }

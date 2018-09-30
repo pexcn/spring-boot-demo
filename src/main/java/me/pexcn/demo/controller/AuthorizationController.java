@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import me.pexcn.demo.base.ResponseData;
+import me.pexcn.demo.config.Constants;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class AuthorizationController {
     }
 
     @PostMapping
-    @ApiOperation(value = "授权")
+    @ApiOperation("授权")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "Token", dataType = "String", paramType = "header", required = true)
+            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
     })
-    public ResponseData<User> authorization(@RequestHeader String token) {
+    public ResponseData<User> authorization(@RequestHeader(Constants.HEADER_KEY_AUTHORIZATION) String token) {
         User user = authorizationService.authorization(token);
         return ResponseData.succeed(user);
     }

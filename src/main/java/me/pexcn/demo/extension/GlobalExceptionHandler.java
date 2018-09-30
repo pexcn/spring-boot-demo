@@ -17,7 +17,7 @@ import java.util.Objects;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     /**
-     * TODO: status: exception class name
+     * TODO: workaround only, I want to wrap the spring exception response via ResponseData.fail().
      */
     @ExceptionHandler(RuntimeException.class)
     public ResponseData onHandle(RuntimeException e) {
