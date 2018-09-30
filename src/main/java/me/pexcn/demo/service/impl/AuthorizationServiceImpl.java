@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import me.pexcn.demo.config.Constants;
 import me.pexcn.demo.config.ErrorCode;
 import me.pexcn.demo.entity.model.User;
-import me.pexcn.demo.exception.StatusException;
+import me.pexcn.demo.exception.ServiceException;
 import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.AuthorizationService;
 import me.pexcn.demo.utils.TokenUtils;
@@ -27,7 +27,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public User authorization(String token) {
         if (!TokenUtils.isValid(token)) {
-            throw new StatusException(ErrorCode.TOKEN_INVALID);
+            throw new ServiceException(ErrorCode.TOKEN_INVALID);
         }
 
         Claims claims = TokenUtils.parseToken(token);

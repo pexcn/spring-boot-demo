@@ -1,9 +1,9 @@
 package me.pexcn.demo.extension;
 
 import lombok.extern.slf4j.Slf4j;
+import me.pexcn.demo.base.BaseException;
 import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.config.ErrorCode;
-import me.pexcn.demo.exception.StatusException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     public ResponseData onHandle(RuntimeException e) {
         e.printStackTrace();
 
-        if (e instanceof StatusException) {
-            StatusException error = (StatusException) e;
+        if (e instanceof BaseException) {
+            BaseException error = (BaseException) e;
 
             // TODO: write log to file.
             log.error(error.getMessage());

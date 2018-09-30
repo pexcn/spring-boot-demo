@@ -1,4 +1,4 @@
-package me.pexcn.demo.exception;
+package me.pexcn.demo.base;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -6,25 +6,25 @@ import me.pexcn.demo.config.ErrorCode;
 
 /**
  * @author pexcn
- * @date 2018-09-26
+ * @date 2018-09-30
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StatusException extends RuntimeException {
+public abstract class BaseException extends RuntimeException {
     private static final long serialVersionUID = -2884711401322100667L;
 
     private ErrorCode code;
 
-    public StatusException(String message) {
+    public BaseException(String message) {
         super(message);
     }
 
-    public StatusException(ErrorCode code) {
+    public BaseException(ErrorCode code) {
         super(code.getMessage());
         this.code = code;
     }
 
-    public StatusException(ErrorCode code, String message) {
+    public BaseException(ErrorCode code, String message) {
         super(message);
         this.code = code;
     }

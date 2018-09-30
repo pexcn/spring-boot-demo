@@ -3,7 +3,7 @@ package me.pexcn.demo.service.impl;
 import me.pexcn.demo.config.ErrorCode;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.response.LoginResult;
-import me.pexcn.demo.exception.StatusException;
+import me.pexcn.demo.exception.ServiceException;
 import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.UserService;
 import me.pexcn.demo.utils.TokenUtils;
@@ -28,20 +28,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginResult login(User user) {
         if ("".equals(user.getUsername()) || Objects.isNull(user.getUsername())) {
-            throw new StatusException(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new ServiceException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(user.getPassword()) || Objects.isNull(user.getPassword())) {
-            throw new StatusException(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new ServiceException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(user.getUsername())) {
-            throw new StatusException(ErrorCode.USER_NOT_EXIST);
+            throw new ServiceException(ErrorCode.USER_NOT_EXIST);
         }
 
         User u = userMapper.selectOne(user);
         if (Objects.isNull(u)) {
-            throw new StatusException(ErrorCode.USER_NOT_MATCH);
+            throw new ServiceException(ErrorCode.USER_NOT_MATCH);
         }
 
         LoginResult result = new LoginResult();

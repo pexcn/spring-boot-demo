@@ -3,8 +3,6 @@ package me.pexcn.demo.entity.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tk.mybatis.mapper.annotation.NameStyle;
-import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +16,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-@NameStyle(Style.camelhumpAndLowercase)
 public class User {
     @Id
     @GeneratedValue(generator = "JDBC")
