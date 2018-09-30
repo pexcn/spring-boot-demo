@@ -13,11 +13,10 @@ import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.request.CommentBody;
 import me.pexcn.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 /**
  * @author pexcn
@@ -45,5 +44,17 @@ public class CommentController {
         comment.setCommentText(body.getComment());
         commentService.addComment(user.getUid(), comment);
         return ResponseData.succeed();
+    }
+
+    @Authorization
+    @GetMapping
+    @ApiOperation("根据用户 ID 获取评论")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
+    })
+    public ResponseData<List<Comment>> getCommentsByUserId(@ApiIgnore @CurrentUser User user) {
+        Long uid = user.getUid();
+        List<Comment> comments = commentService.getCommentsByUserId(uid);
+        return ResponseData.succeed(comments);
     }
 }

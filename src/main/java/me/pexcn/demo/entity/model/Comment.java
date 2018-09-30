@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author pexcn
@@ -22,7 +22,7 @@ public class Comment {
     @GeneratedValue(generator = "JDBC")
     private Long cid;
     private String commentText;
-    private Timestamp createdTime;
-    private Timestamp updatedTime;
+    private Date createdTime;
+    private Date updatedTime;
     private Long userId;
 }

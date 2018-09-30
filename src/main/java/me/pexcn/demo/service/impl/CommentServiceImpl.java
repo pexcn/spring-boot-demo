@@ -6,8 +6,10 @@ import me.pexcn.demo.mapper.CommentMapper;
 import me.pexcn.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author pexcn
@@ -25,10 +27,17 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addComment(Long userId, Comment comment) {
         comment.setUserId(userId);
-        comment.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+        comment.setCreatedTime(new Date());
         int result = commentMapper.insert(comment);
         if (result < 1) {
             throw new ServiceException("评论失败");
         }
+    }
+
+    @Override
+    public List<Comment> getCommentsByUserId(Long userId) {
+        Example example = Example.builder(Comment.class).build();
+        example.createCriteria().andEqualTo("userId", userId);
+        return commentMapper.selectByExample(example);
     }
 }
