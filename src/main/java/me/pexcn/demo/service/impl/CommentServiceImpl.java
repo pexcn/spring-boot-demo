@@ -28,8 +28,8 @@ public class CommentServiceImpl implements CommentService {
     public void addComment(Long userId, Comment comment) {
         comment.setUserId(userId);
         comment.setCreatedTime(new Date());
-        int result = commentMapper.insert(comment);
-        if (result < 1) {
+        int code = commentMapper.insert(comment);
+        if (code < 1) {
             throw new ServiceException("评论失败");
         }
     }

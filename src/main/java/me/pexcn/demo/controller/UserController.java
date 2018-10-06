@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.request.LoginBody;
+import me.pexcn.demo.entity.request.RegisterBody;
 import me.pexcn.demo.entity.response.LoginResult;
+import me.pexcn.demo.entity.response.RegisterResult;
 import me.pexcn.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +37,16 @@ public class UserController {
         user.setUsername(body.getUsername());
         user.setPassword(body.getPassword());
         LoginResult result = userService.login(user);
+        return ResponseData.succeed(result);
+    }
+
+    @PostMapping("/register")
+    @ApiOperation("用户注册")
+    public ResponseData<RegisterResult> register(@RequestBody RegisterBody body) {
+        User user = new User();
+        user.setUsername(body.getUsername());
+        user.setPassword(body.getPassword());
+        RegisterResult result = userService.register(user);
         return ResponseData.succeed(result);
     }
 }

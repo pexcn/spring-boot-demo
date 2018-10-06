@@ -13,6 +13,7 @@ mybatis:
 mapper:
   identity: MYSQL
   mappers: me.pexcn.demo.base.BaseMapper
+  before: true
 
 pagehelper:
   auto-dialect: true

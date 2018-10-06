@@ -2,7 +2,6 @@ package me.pexcn.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import me.pexcn.demo.annotation.Authorization;
 import me.pexcn.demo.annotation.CurrentUser;
@@ -36,9 +35,7 @@ public class CommentController {
     @Authorization
     @PostMapping
     @ApiOperation("添加评论")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
-    })
+    @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
     public ResponseData<?> addComment(@ApiIgnore @CurrentUser User user, @RequestBody CommentBody body) {
         Comment comment = new Comment();
         comment.setCommentText(body.getComment());
@@ -49,9 +46,7 @@ public class CommentController {
     @Authorization
     @GetMapping
     @ApiOperation("根据用户 ID 获取评论")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
-    })
+    @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
     public ResponseData<List<Comment>> getCommentsByUserId(@ApiIgnore @CurrentUser User user) {
         Long uid = user.getUid();
         List<Comment> comments = commentService.getCommentsByUserId(uid);

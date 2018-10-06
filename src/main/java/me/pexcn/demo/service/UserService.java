@@ -2,6 +2,7 @@ package me.pexcn.demo.service;
 
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.response.LoginResult;
+import me.pexcn.demo.entity.response.RegisterResult;
 
 /**
  * @author pexcn
@@ -9,4 +10,6 @@ import me.pexcn.demo.entity.response.LoginResult;
  */
 public interface UserService {
     LoginResult login(User user);
+
+    RegisterResult register(User user);
 }

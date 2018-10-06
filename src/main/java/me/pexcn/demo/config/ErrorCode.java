@@ -17,6 +17,8 @@ public enum ErrorCode {
 
     PASSWORD_NOT_BE_NULL("0x100003", "密码不能为空"),
 
+    USER_ALREADY_EXIST("0x100004", "用户名已存在"),
+
     TOKEN_INVALID("0x100004", "Token 无效"),
 
     ;
