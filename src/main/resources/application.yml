@@ -14,6 +14,8 @@ mapper:
   identity: MYSQL
   mappers: me.pexcn.demo.base.BaseMapper
   before: true
+  safe-update: true
+  safe-delete: true
 
 pagehelper:
   auto-dialect: true
