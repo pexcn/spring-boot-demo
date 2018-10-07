@@ -19,7 +19,10 @@ import javax.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(generator = "JDBC")
+
     private Long uid;
+
     private String username;
+
     private String password;
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +26,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addComment(Long userId, Comment comment) {
         comment.setUserId(userId);
-        comment.setCreatedTime(new Date());
         int code = commentMapper.insert(comment);
         if (code < 1) {
             throw new CommonException("评论失败");
