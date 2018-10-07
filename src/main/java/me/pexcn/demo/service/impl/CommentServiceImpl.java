@@ -24,8 +24,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void addComment(Long userId, Comment comment) {
-        comment.setUserId(userId);
+    public void addComment(Comment comment) {
         int code = commentMapper.insert(comment);
         if (code < 1) {
             throw new CommonException("评论失败");
@@ -33,7 +32,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentsByUserId(Long userId) {
+    public void updateComment(Comment comment) {
+        int code = commentMapper.updateByPrimaryKeySelective(comment);
+        if (code < 1) {
+            throw new CommonException("更新评论失败");
+        }
+    }
+
+    @Override
+    public List<Comment> getCommentListByUserId(Long userId) {
         Example example = new Example(Comment.class);
         example.createCriteria().andEqualTo("userId", userId);
         return commentMapper.selectByExample(example);

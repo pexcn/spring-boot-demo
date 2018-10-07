@@ -2,6 +2,7 @@ package me.pexcn.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import me.pexcn.demo.annotation.Authorization;
 import me.pexcn.demo.annotation.CurrentUser;
@@ -38,18 +39,34 @@ public class CommentController {
     @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
     public ResponseData<?> addComment(@ApiIgnore @CurrentUser User user, @RequestBody CommentBody body) {
         Comment comment = new Comment();
+        comment.setUserId(user.getUid());
         comment.setCommentText(body.getComment());
-        commentService.addComment(user.getUid(), comment);
+        commentService.addComment(comment);
+        return ResponseData.succeed();
+    }
+
+    @Authorization
+    @PutMapping
+    @ApiOperation("更新评论")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
+            @ApiImplicitParam(name = "commentId", value = "评论 ID", dataType = "String", paramType = "query", required = true)
+    })
+    public ResponseData<?> updateComment(String commentId, @RequestBody CommentBody body) {
+        Comment comment = new Comment();
+        comment.setCid(commentId);
+        comment.setCommentText(body.getComment());
+        commentService.updateComment(comment);
         return ResponseData.succeed();
     }
 
     @Authorization
     @GetMapping
-    @ApiOperation("根据用户 ID 获取评论")
+    @ApiOperation("根据用户 ID 获取评论列表")
     @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
-    public ResponseData<List<Comment>> getCommentsByUserId(@ApiIgnore @CurrentUser User user) {
+    public ResponseData<List<Comment>> getCommentListByUserId(@ApiIgnore @CurrentUser User user) {
         Long uid = user.getUid();
-        List<Comment> comments = commentService.getCommentsByUserId(uid);
+        List<Comment> comments = commentService.getCommentListByUserId(uid);
         return ResponseData.succeed(comments);
     }
 }
