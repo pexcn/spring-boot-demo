@@ -1,7 +1,7 @@
 package me.pexcn.demo.service.impl;
 
 import me.pexcn.demo.entity.model.Comment;
-import me.pexcn.demo.exception.ServiceException;
+import me.pexcn.demo.exception.CommonException;
 import me.pexcn.demo.mapper.CommentMapper;
 import me.pexcn.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +30,13 @@ public class CommentServiceImpl implements CommentService {
         comment.setCreatedTime(new Date());
         int code = commentMapper.insert(comment);
         if (code < 1) {
-            throw new ServiceException("评论失败");
+            throw new CommonException("评论失败");
         }
     }
 
     @Override
     public List<Comment> getCommentsByUserId(Long userId) {
-        Example example = Example.builder(Comment.class).build();
+        Example example = new Example(Comment.class);
         example.createCriteria().andEqualTo("userId", userId);
         return commentMapper.selectByExample(example);
     }

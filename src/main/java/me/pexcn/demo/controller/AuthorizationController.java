@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import me.pexcn.demo.base.ResponseData;
+import me.pexcn.demo.utils.ResponseData;
 import me.pexcn.demo.config.Constants;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.service.AuthorizationService;

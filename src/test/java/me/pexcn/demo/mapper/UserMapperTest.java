@@ -57,7 +57,7 @@ public class UserMapperTest {
 
     @Test
     public void testDeleteByExample() {
-        Example example = Example.builder(User.class).build();
+        Example example = new Example(User.class);
         example.createCriteria().andEqualTo("username", "google");
         int result = userMapper.deleteByExample(example);
         Assert.assertEquals(1, result);

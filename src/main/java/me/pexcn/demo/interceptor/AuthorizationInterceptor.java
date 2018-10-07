@@ -1,7 +1,7 @@
 package me.pexcn.demo.interceptor;
 
 import me.pexcn.demo.annotation.Authorization;
-import me.pexcn.demo.base.ResponseData;
+import me.pexcn.demo.utils.ResponseData;
 import me.pexcn.demo.config.Constants;
 import me.pexcn.demo.controller.AuthorizationController;
 import me.pexcn.demo.entity.model.User;

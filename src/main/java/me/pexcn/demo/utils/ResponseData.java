@@ -1,4 +1,4 @@
-package me.pexcn.demo.base;
+package me.pexcn.demo.utils;
 
 import lombok.Data;
 import me.pexcn.demo.config.ErrorCode;

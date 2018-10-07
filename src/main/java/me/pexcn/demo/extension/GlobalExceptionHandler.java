@@ -1,9 +1,9 @@
 package me.pexcn.demo.extension;
 
 import lombok.extern.slf4j.Slf4j;
-import me.pexcn.demo.base.BaseException;
-import me.pexcn.demo.base.ResponseData;
 import me.pexcn.demo.config.ErrorCode;
+import me.pexcn.demo.exception.CommonException;
+import me.pexcn.demo.utils.ResponseData;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -20,17 +20,15 @@ public class GlobalExceptionHandler {
      * TODO: workaround only, I want to wrap the spring exception response via ResponseData.fail().
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseData onHandle(RuntimeException e) {
-        e.printStackTrace();
-
-        if (e instanceof BaseException) {
-            BaseException error = (BaseException) e;
+    public ResponseData onCommonException(RuntimeException e) {
+        if (e instanceof CommonException) {
+            CommonException ee = (CommonException) e;
 
             // TODO: write log to file.
-            log.error(error.getMessage());
+            log.warn(ee.getMessage());
 
-            if (Objects.nonNull(error.getCode())) {
-                return ResponseData.fail(error.getCode(), error.getMessage());
+            if (Objects.nonNull(ee.getCode())) {
+                return ResponseData.fail(ee.getCode(), ee.getMessage());
             }
         }
         return ResponseData.fail(ErrorCode.SYSTEM_ERROR, e.getMessage());

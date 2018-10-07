@@ -4,7 +4,7 @@ import me.pexcn.demo.config.ErrorCode;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.response.LoginResult;
 import me.pexcn.demo.entity.response.RegisterResult;
-import me.pexcn.demo.exception.ServiceException;
+import me.pexcn.demo.exception.CommonException;
 import me.pexcn.demo.mapper.UserMapper;
 import me.pexcn.demo.service.UserService;
 import me.pexcn.demo.utils.TokenUtils;
@@ -29,20 +29,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginResult login(User user) {
         if ("".equals(user.getUsername()) || Objects.isNull(user.getUsername())) {
-            throw new ServiceException(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new CommonException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(user.getPassword()) || Objects.isNull(user.getPassword())) {
-            throw new ServiceException(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new CommonException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (!userMapper.isExistUser(user.getUsername())) {
-            throw new ServiceException(ErrorCode.USER_NOT_EXIST);
+            throw new CommonException(ErrorCode.USER_NOT_EXIST);
         }
 
         User u = userMapper.selectOne(user);
         if (Objects.isNull(u)) {
-            throw new ServiceException(ErrorCode.USER_NOT_MATCH);
+            throw new CommonException(ErrorCode.USER_NOT_MATCH);
         }
 
         LoginResult result = new LoginResult();
@@ -54,20 +54,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public RegisterResult register(User user) {
         if ("".equals(user.getUsername()) || Objects.isNull(user.getUsername())) {
-            throw new ServiceException(ErrorCode.USERNAME_NOT_BE_NULL);
+            throw new CommonException(ErrorCode.USERNAME_NOT_BE_NULL);
         }
 
         if ("".equals(user.getPassword()) || Objects.isNull(user.getPassword())) {
-            throw new ServiceException(ErrorCode.PASSWORD_NOT_BE_NULL);
+            throw new CommonException(ErrorCode.PASSWORD_NOT_BE_NULL);
         }
 
         if (userMapper.isExistUser(user.getUsername())) {
-            throw new ServiceException(ErrorCode.USER_ALREADY_EXIST);
+            throw new CommonException(ErrorCode.USER_ALREADY_EXIST);
         }
 
         int code = userMapper.insertSelective(user);
         if (code < 1) {
-            throw new ServiceException("注册失败");
+            throw new CommonException("注册失败");
         }
 
         RegisterResult result = new RegisterResult();

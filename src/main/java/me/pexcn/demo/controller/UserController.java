@@ -2,7 +2,7 @@ package me.pexcn.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.pexcn.demo.base.ResponseData;
+import me.pexcn.demo.utils.ResponseData;
 import me.pexcn.demo.entity.model.User;
 import me.pexcn.demo.entity.request.LoginBody;
 import me.pexcn.demo.entity.request.RegisterBody;
