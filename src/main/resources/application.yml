@@ -24,3 +24,8 @@ pagehelper:
     alias[0]: com.github.pagehelper.dialect.helper.MySqlDialect
   reasonable: true
   support-methods-arguments: true
+
+# workaround only, more: https://github.com/springfox/springfox/issues/2265#issuecomment-413286451
+logging:
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error

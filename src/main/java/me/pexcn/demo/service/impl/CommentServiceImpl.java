@@ -24,7 +24,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void addComment(Comment comment) {
+    public void addComment(Long userId, Long pathUserId, Comment comment) {
+        if (!userId.equals(pathUserId)) {
+            throw new CommonException("API 路径的 ID 要与已登录的用户 ID 一致");
+        }
+
         int code = commentMapper.insert(comment);
         if (code < 1) {
             throw new CommonException("评论失败");

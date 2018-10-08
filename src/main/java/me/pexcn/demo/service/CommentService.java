@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2018-09-30
  */
 public interface CommentService {
-    void addComment(Comment comment);
+    void addComment(Long userId, Long pathUserId, Comment comment);
 
     void updateComment(Comment comment);
 

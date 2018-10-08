@@ -34,14 +34,19 @@ public class CommentController {
     }
 
     @Authorization
-    @PostMapping
+    @PostMapping("/{userId}")
     @ApiOperation("添加评论")
-    @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true)
-    public ResponseData<?> addComment(@ApiIgnore @CurrentUser User user, @RequestBody CommentBody body) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
+            @ApiImplicitParam(name = "userId", value = "用户 ID", dataType = "Long", paramType = "path", required = true),
+            @ApiImplicitParam(name = "body", value = "评论请求体", dataType = "CommentBody", paramType = "body", required = true)
+    })
+    public ResponseData<?> addComment(@ApiIgnore @CurrentUser User user,
+                                      @PathVariable Long userId, @RequestBody CommentBody body) {
         Comment comment = new Comment();
-        comment.setUserId(user.getUid());
+        comment.setUserId(userId);
         comment.setCommentText(body.getComment());
-        commentService.addComment(comment);
+        commentService.addComment(user.getUid(), userId, comment);
         return ResponseData.succeed();
     }
 
@@ -50,7 +55,8 @@ public class CommentController {
     @ApiOperation("更新评论")
     @ApiImplicitParams({
             @ApiImplicitParam(name = Constants.HEADER_KEY_AUTHORIZATION, value = "Token", dataType = "String", paramType = "header", required = true),
-            @ApiImplicitParam(name = "commentId", value = "评论 ID", dataType = "String", paramType = "query", required = true)
+            @ApiImplicitParam(name = "commentId", value = "评论 ID", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "body", value = "评论请求体", dataType = "CommentBody", paramType = "body", required = true)
     })
     public ResponseData<?> updateComment(String commentId, @RequestBody CommentBody body) {
         Comment comment = new Comment();
